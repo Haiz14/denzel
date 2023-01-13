@@ -35,9 +35,13 @@ class Denzel(Bot):
         profanity.load_censor_words()
         self.profanity = profanity
 
+        self.bot_channel = None
+
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
         print('------')
+
+        self.bot_channel = self.get_channel(1063387085966413855)
 
         # todo: load_cogs form  dezel/_cogs/__init__.py insted of direct file
 
