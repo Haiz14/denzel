@@ -1,6 +1,9 @@
 # vim seesion
 Session.vim
 
+# database
+cake.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
