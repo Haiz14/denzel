@@ -17,6 +17,8 @@ class Reload(commands.Cog):
         - check if arg provided is in, if not send that the argument is not int
         """
 
+        
+
         if self.is_owner(ctx.message.author):
             # convert arg to int
             try:
@@ -42,6 +44,7 @@ class Reload(commands.Cog):
 
         else:
             await ctx.send("you are not the **owner**, so can't use the command")
+
 
 
 

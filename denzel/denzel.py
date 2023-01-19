@@ -1,8 +1,11 @@
 import os
+import sqlite3
 
 import discord
 from discord.ext.commands import Bot
 from better_profanity import profanity
+
+
 """
 Code Overview 
 
@@ -36,12 +39,20 @@ class Denzel(Bot):
         self.profanity = profanity
 
         self.bot_channel = None
+        self.test_server_id = 1059338776146612254
+
+        self.conn = sqlite3.connect("cake.db")
 
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
         print('------')
 
+        # add guild and bot_channel
         self.bot_channel = self.get_channel(1063387085966413855)
+        self.test_server = self.get_guild(self.test_server_id)
+
+        # add slash commands to only test_guild
+        self.tree.copy_global_to(guild=self.test_server)
 
         # todo: load_cogs form  dezel/_cogs/__init__.py insted of direct file
 
