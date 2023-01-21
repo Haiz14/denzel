@@ -193,16 +193,6 @@ class ModalCog(commands.Cog):
 
 
     @commands.command()
-    async def color(self, ctx):
-        """Sends a modal message to the user."""
-
-
-        # Create the view containing our dropdown
-        view = DropdownView()
-
-        # Sending a message containing our view
-        await ctx.send('Pick your favourite colour:', view=EphemeralCounter())
-    @commands.command()
     async def tictac(self, ctx):
         """Sends a modal message to the user."""
 

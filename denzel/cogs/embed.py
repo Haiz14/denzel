@@ -21,9 +21,6 @@ class EmbedCogs(commands.Cog):
         await ctx.send(embed=embed)
 
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        print('message sent')
 
 async def setup(bot):
     await bot.add_cog(EmbedCogs(bot))

@@ -1,5 +1,6 @@
 import os
 import asyncio
+import sys
 
 from dotenv import load_dotenv
 
@@ -9,7 +10,7 @@ Scuipt is used to run the bot locally for debugging
 """
 
 load_dotenv()
-BOT_TOKEN = os.getenv('BOT_TOKEN')
+BOT_TOKEN = sys.argv[1]
 bot = Denzel(COMMAND_PREFIX="!")
 bot.run(BOT_TOKEN)
 

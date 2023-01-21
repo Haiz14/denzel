@@ -40,6 +40,7 @@ class Denzel(Bot):
 
         self.bot_channel = None
         self.test_server_id = 1059338776146612254
+        self.fish_cake_bets_channel_id = 1062994259034251314
 
         self.conn = sqlite3.connect("cake.db")
 
@@ -49,6 +50,7 @@ class Denzel(Bot):
 
         # add guild and bot_channel
         self.bot_channel = self.get_channel(1063387085966413855)
+        self.fish_cake_bets_channel = self.get_channel(self.fish_cake_bets_channel_id)
         self.test_server = self.get_guild(self.test_server_id)
 
         # add slash commands to only test_guild

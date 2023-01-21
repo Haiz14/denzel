@@ -2,6 +2,7 @@ import sqlite3
 import time
 from datetime import datetime
 
+from tabulate import tabulate
 class QueryNotExecutedException(Exception):
     
     def __init__(self, value):
@@ -82,13 +83,41 @@ def fetch_data(conn, fetch_query):
     cursor.execute(fetch_query)
     
     result = cursor.fetchall()
-    print(cursor.rowcount)
 
     # if result is empty raise error NoDataFetchedError
     if cursor.rowcount == 0: raise NoDataFetchedError(query)
 
-    return result
     cursor.close()
+    return result
+
+
+def fetch_single_cell_data(conn, fetch_query):
+    """
+    doctest
+
+
+    >>> import sqlite3 
+    >>> conn = sqlite3.connect("cake.db")
+    >>> data = fetch_single_cell_data(conn, fetch_query = "SELECT user_name FROM fish_cakes WHERE user_id=4954")
+    >>> data
+    'test_user2'
+    >>>
+
+    """
+    # Connect to the database
+    cursor = conn.cursor()
+
+    cursor.execute(fetch_query)
+    
+    # since theres only one cell of data only the zero positon is not empty
+    result = cursor.fetchone()[0]
+
+    # if result is empty raise error NoDataFetchedError
+    if cursor.rowcount == 0: raise NoDataFetchedError(query)
+
+    cursor.close()
+    return result
+
 
 def create_new_user(conn: sqlite3.Connection, user_id :int, user_name: str):
 
@@ -110,6 +139,16 @@ def create_new_user(conn: sqlite3.Connection, user_id :int, user_name: str):
     else: execute_query(conn, query = user_insert_query)
 
 
+def fetch_leaderboard(conn):
+    fetch_query = """WITH num_rows AS(SELECT COUNT(*) FROM fish_cakes)
+SELECT user_name, total_fish_cakes
+FROM fish_cakes
+WHERE (SELECT * FROM num_rows) <= 10
+ORDER BY total_fish_cakes DESC
+LIMIT 10;"""
+    leaderboard_data = fetch_data(conn, fetch_query)
+    return tabulate(leaderboard_data, headers=["name", "fish_cakes"], tablefmt="simple")
+    return leaderboard_table_string
 
     
 
@@ -117,7 +156,7 @@ def fetch_total_fish_cakes(conn, user_id):
 
     fetch_query = f"SELECT total_fish_cakes FROM fish_cakes WHERE user_id = '{user_id}'"
 
-    return fetch_data(conn, fetch_query)
+    return fetch_single_cell_data(conn, fetch_query)
 
 
 def add_fish_cakes(conn,  user_id, fish_cakes_to_add):
@@ -126,8 +165,11 @@ def add_fish_cakes(conn,  user_id, fish_cakes_to_add):
     execute_query(conn, query)
 
 def subtract_fish_cakes(conn, user_id, fish_cakes_to_subtract):
+    
     """
     uodated only if subtracted value is >= 0
+
+    if user does not have enough amoumt to be sibtracted, NoDataFetchedError is caused
     
     """
     query = f"""UPDATE fish_cakes SET total_fish_cakes =  (total_fish_cakes - {fish_cakes_to_subtract}) 
@@ -149,7 +191,7 @@ def update_last_collection(conn, user_id, time_to_insert):
 
     
 
-def get_last_fish_collection_difference(conn, user_id, update_collection_time =False):
+def fetch_last_fish_collection_difference(conn, user_id, update_collection_time =False):
     """
     -> get last collection time
     -> get current time
@@ -173,10 +215,8 @@ def get_last_fish_collection_difference(conn, user_id, update_collection_time =F
 
 
 def main():
-    conn = sqlite3.connect("cake.db")
-    user_id = "4954"
-
-    create_new_user(conn, user_id, user_name="test_user2")
+    import doctest
+    doctest.testmod()
 
 
     
