@@ -30,4 +30,4 @@ class WordFilter(commands.Cog):
     
 
 async def setup(bot):
-    await bot.add_cog(WordFulter(bot))
+    await bot.add_cog(WordFilter(bot))
