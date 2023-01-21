@@ -12,6 +12,7 @@ class WordFilter(commands.Cog):
         self._last_member = None
         self.last_message = None
         self.last_second_message = None
+        self.last_third_message= None
         self._last_member = None
 
 
