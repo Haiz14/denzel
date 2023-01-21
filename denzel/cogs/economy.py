@@ -85,12 +85,12 @@ class Economy(commands.Cog):
         if (user_balance - amount) >= 0:
             try: 
                 add_fish_cakes(conn=self.bot.conn, user_id=user_to_give_id, fish_cakes_to_add=amount)
-                await interaction.response.send_message("🍥 sent")
+                await interaction.response.send_message(f"{user_to_give.mention} you got {amount} 🍥 from {interaction.user.mention} sent")
 
             except QueryNotExecutedException:
                 # reutrn back
 
-                await interaction.response.send_message("User {user_to_give.name} has not joined fish cake, you can ask tuem to join here and start the cake magic 🍥")
+                await interaction.response.send_message(f"User {user_to_give.name} has not joined fish cake, you can ask tuem to join here and start the cake magic 🍥")
                 return
             except Exception as e:
                 await interaction.response.send_message("an error occured")
