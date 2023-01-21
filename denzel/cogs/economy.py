@@ -94,9 +94,9 @@ class Economy(commands.Cog):
                 return
             except Exception as e:
                 await interaction.response.send_message("an error occured")
+            subtract_fish_cakes(conn=self.bot.conn, user_id=author_id, fish_cakes_to_subtract=amount)
             return
 
-            subtract_fish_cakes(conn=self.bot.conn, user_id=author_id, fish_cakes_to_subtract=amount)
 
         else:
             embed = Embed(title="Insufficient-balance", description=f"you are missing {(bet_amount - user_balance):,} 🍥", color=0x0000ff)
