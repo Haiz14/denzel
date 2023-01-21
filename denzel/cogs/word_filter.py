@@ -11,7 +11,7 @@ class WordFilter(commands.Cog):
 
 
 
-    @commands.cog.listener()
+    @commands.Cog.listener()
     async def on_message(self, message):
         
 
