@@ -5,6 +5,8 @@ from better_profanity import profanity
 
 
 class WordFilter(commands.Cog):
+
+    profanity.load_censor_words()
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
@@ -15,12 +17,12 @@ class WordFilter(commands.Cog):
     async def on_message(self, message):
         
 
-        if message.author == self.user:
+        if message.author == self.bot.user:
             return
 
-        elif self.profanity.contains_profanity(message.content):
+        elif profanity.contains_profanity(message.content):
             # replace the bad word with asterisks
-            new_message = self.profanity.censor(message.content)
+            new_message = profanity.censor(message.content)
             await message.delete()
             embed = discord.Embed(title="Prohibited message", description=f"The new message is : {new_message}", color=0xff0000)
             await message.channel.send(embed=embed)
