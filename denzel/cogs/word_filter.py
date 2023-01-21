@@ -35,7 +35,7 @@ class WordFilter(commands.Cog):
         self.last_second_message = self.last_message
         self.last_message = message
 
-        if self.last_message = self.last_second_message == self.last_third_message:
+        if self.last_message == self.last_second_message == self.last_third_message:
             await message.channel.send(f"{message.author.mention} you are spamming plss stop")
 
     
