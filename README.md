@@ -1,5 +1,5 @@
 
-Note: it is not currently usable in any server other [than](https://discord.gg/kUDRkMpc), since its not optimised for other servers
+Note: it is not currently usable in any server other [than](https://discord.gg/kUDRkMpc), since its not optimised for wide release
 
 # denzel
 A general all purpose bot in python
