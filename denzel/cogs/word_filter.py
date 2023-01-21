@@ -10,11 +10,14 @@ class WordFilter(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._last_member = None
+        self.last_message = None
+        self.last_second_message = None
+        self._last_member = None
 
 
 
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message):
         
 
         if message.author == self.bot.user:
@@ -27,7 +30,13 @@ class WordFilter(commands.Cog):
             embed = discord.Embed(title="Prohibited message", description=f"The new message is : {new_message}", color=0xff0000)
             await message.channel.send(embed=embed)
 
-        print("a message was sent")
+
+        self.last_third_message = self.last_second_message
+        self.last_second_message = self.last_message
+        self.last_message = message
+
+        if self.last_message = self.last_second_message == self.last_third_message:
+            await message.channel.send(f"{message.author.mention} you are spamming plss stop")
 
     
 
